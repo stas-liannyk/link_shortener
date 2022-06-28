@@ -37,9 +37,9 @@ class LinkController extends Controller
 
     /**
      * @param LinkRequest $linkRequest
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function create(LinkRequest $linkRequest)
+    public function create(LinkRequest $linkRequest): RedirectResponse
     {
         $processedLink = $this->linkService->create($linkRequest->validated());
 
