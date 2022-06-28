@@ -5,30 +5,16 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Models\Link;
-use Illuminate\Database\Eloquent\Model;
 
 class LinkRepository
 {
-    /**
-     * @var Model
-     */
-    protected Model $model;
-
-    /**
-     * @param Link $link
-     */
-    public function __construct(Link $link)
-    {
-        $this->model = $link;
-    }
-
     /**
      * @param string $processedLink
      * @return Link
      */
     public function findEnabledLink(string $processedLink): Link
     {
-        return $this->model->where('is_enabled', true)
+        return Link::where('is_enabled', true)
             ->where('processed_link', $processedLink)
             ->firstOrFail();
     }
@@ -39,7 +25,7 @@ class LinkRepository
      */
     public function findLink(string $processedLink): ?Link
     {
-        return $this->model->where('processed_link', $processedLink)->first();
+        return Link::where('processed_link', $processedLink)->first();
     }
 
     /**
@@ -48,7 +34,7 @@ class LinkRepository
      */
     public function updateVisitCounter(string $processedLink): void
     {
-        $this->model->where('processed_link', $processedLink)->increment('visit_count');
+        Link::where('processed_link', $processedLink)->increment('visit_count');
     }
 
     /**
@@ -57,7 +43,7 @@ class LinkRepository
      */
     public function disableLink(string $processedLink): void
     {
-        $this->model->where('processed_link', $processedLink)->update(['is_enabled' => false]);
+        Link::where('processed_link', $processedLink)->update(['is_enabled' => false]);
     }
 
     /**
@@ -67,7 +53,7 @@ class LinkRepository
      */
     public function create(array $data, string $processedLink): void
     {
-        $this->model::create([
+        Link::create([
             'original_link' => $data['original_link'],
             'processed_link'  => $processedLink,
             'visit_limit'  => $data['visit_limit'],
