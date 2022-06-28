@@ -45,7 +45,7 @@
         {!! Form::number('lifetime', null, ['class' => 'form-control']) !!}
 
         <div class="form-group mt-2">
-            {!! Form::button('Уменьшить', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+            {!! Form::button('Submit', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
         </div>
 
         {!! Form::close() !!}
